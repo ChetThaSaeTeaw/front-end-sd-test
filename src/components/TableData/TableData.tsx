@@ -33,12 +33,12 @@ interface DataType {
   management : string
 };
 
-// interface EditData {
-//   firstname : string,
-//   gender : string,
-//   phone_number : string,
-//   nationality : string,
-// };
+interface EditData {
+  firstname : string,
+  gender : string,
+  phone_number : string,
+  nationality : string,
+};
 
 // Icons
 import { DeleteOutlined , EditOutlined } from '@ant-design/icons';
@@ -80,6 +80,56 @@ export default function TableData({ t , todos , setTodos } : any) {
   const users = useSelector((state) => state.users.value);
   const dispatch = useDispatch();
 
+    
+  // const storageData = localStorage.getItem("users") || "";
+  // const data = !localStorage.getItem("users") ? [] : JSON.parse(storageData);
+
+    // Edit 
+    const editUser = (record : any) => {
+      setShowEdit(true);
+      setEditingUser({...record});
+    };
+  
+    const resetEditUser = () => {
+      setShowEdit(false);
+      setEditingUser(null);
+    };
+    
+    // Select All In Table
+    const rowSelection = {
+      onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
+        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      },
+      getCheckboxProps: (record: DataType) => ({
+        disabled: record.firstname === 'Disabled User', // Column configuration not to be checked
+        name: record.firstname,
+      }),
+    };
+  
+    // Select All Outside Table
+    const checkSelectAll = () => {
+      const rowSelection : TableRowSelection<DataType> = {
+        onChange: (selectedRowKeys, selectedRows) => {
+          console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        },
+        onSelect: (record, selected, selectedRows) => {
+          console.log(record, selected, selectedRows);
+        },
+        onSelectAll: (selected, selectedRows, changeRows) => {
+          console.log(selected, selectedRows, changeRows);
+        },
+      };
+      console.log(rowSelection);
+      setCheckStrictly(!checkStrictly);
+    };
+  
+    // For Select Change
+    const handleChange = (value: string) => {
+      setEditingUser((prev) => {
+        return {...prev , nationality : value}
+      })
+    };
+
   // Title In Table
   const columns : ColumnsType<DataType> = [
     {
@@ -90,10 +140,11 @@ export default function TableData({ t , todos , setTodos } : any) {
       title: t("app.table.gender"),
       dataIndex: 'gender',
       filters: [
-        { text: 'ผู้ชาย', value: 'male' },
-        { text: 'ผู้หญิง', value: 'female' },
-        { text: 'ไม่ระบุ', value: 'none' },
+        { text: 'ผู้ชาย', value: 'ผู้ชาย' },
+        { text: 'ผู้หญิง', value: 'ผู้หญิง' },
+        { text: 'ไม่ระบุ', value: 'ไม่ระบุ' },
       ],
+      onFilter : (value : string , record : EditData) => record.gender.indexOf(value) === 0,
     },{
       title: t("app.table.phone_number"),
       dataIndex: 'phone_number',
@@ -105,6 +156,7 @@ export default function TableData({ t , todos , setTodos } : any) {
         { text: 'ไทย', value: 'ไทย' },
         { text: 'ต่างชาติ', value: 'ต่างชาติ' },
       ],
+      onFilter : (value : string  , record : EditData) => record.nationality.indexOf(value) === 0,
     },{
       title: t("app.table.management"),
       key : 'action',
@@ -121,9 +173,6 @@ export default function TableData({ t , todos , setTodos } : any) {
     }
   ];
   
-  // const storageData = localStorage.getItem("users") || "";
-  // const data = !localStorage.getItem("users") ? [] : JSON.parse(storageData);
-  
   // Remove User
   const deleteUser = (record : any) => {
     // dispatch(removeUser({ id : record.id }));
@@ -136,52 +185,6 @@ export default function TableData({ t , todos , setTodos } : any) {
           return prev.filter((todo : UserData) => todo.key !== record.key);
         });
       }
-    })
-  };
-
-  // Edit 
-  const editUser = (record : any) => {
-    setShowEdit(true);
-    setEditingUser({...record});
-  };
-
-  const resetEditUser = () => {
-    setShowEdit(false);
-    setEditingUser(null);
-  };
-  
-  // Select All In Table
-  const rowSelection = {
-    onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-    },
-    getCheckboxProps: (record: DataType) => ({
-      disabled: record.firstname === 'Disabled User', // Column configuration not to be checked
-      name: record.firstname,
-    }),
-  };
-
-  // Select All Outside Table
-  const checkSelectAll = () => {
-    const rowSelection : TableRowSelection<DataType> = {
-      onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-      },
-      onSelect: (record, selected, selectedRows) => {
-        console.log(record, selected, selectedRows);
-      },
-      onSelectAll: (selected, selectedRows, changeRows) => {
-        console.log(selected, selectedRows, changeRows);
-      },
-    };
-    console.log(rowSelection);
-    setCheckStrictly(!checkStrictly);
-  };
-
-  // For Select Change
-  const handleChange = (value: string) => {
-    setEditingUser((prev) => {
-      return {...prev , nationality : value}
     })
   };
 
