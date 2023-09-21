@@ -70,13 +70,13 @@ export default function FormSubmit({ t , todos , setTodos } : any) {
         await dispatch(addUser(userData));
         await form.resetFields();
         
-        // await Swal.fire({
-        //     icon : 'success',
-        //     title : 'บันทึกข้อมูลสำเร็จ',
-        //     text : 'สามารถตรวจสอบข้อมูลที่ตาราง',
-        //     timer : 2000
-        // });
-        await window.location.reload();
+        await Swal.fire({
+            icon : 'success',
+            title : 'บันทึกข้อมูลสำเร็จ',
+            text : 'สามารถตรวจสอบข้อมูลที่ตาราง',
+            timer : 2000
+        });
+        // await window.location.reload();
     };
 
     
