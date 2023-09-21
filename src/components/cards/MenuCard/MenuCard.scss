@@ -1,0 +1,26 @@
+.home-menu-card-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 320px;
+    padding: 24px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin: 15px;
+    color: #000;
+    box-shadow: 1px 1px 4px 1px #0002;
+    background: var(--lightColor);
+    transition: 0.3s all ease-in;
+    cursor: pointer;
+
+    &:hover {
+        transform: translateY(-12px);
+
+    }
+
+    p {
+        margin: 15px 0 0 0;
+        padding: 12px 0;
+    }
+}

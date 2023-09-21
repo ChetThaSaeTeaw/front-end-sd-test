@@ -1,0 +1,14 @@
+.form-container {
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: 2px solid var(--darkColor);
+
+    .line-between-member-card {
+        position: relative;
+        bottom: 10px;
+    }
+}

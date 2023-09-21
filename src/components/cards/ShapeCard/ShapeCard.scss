@@ -1,0 +1,99 @@
+.shape-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 150px;
+    border-radius: 10px;
+    padding: 16px;
+    margin: 10px 5px;
+    background: #ededed;
+    transition: 0.5s all ease-in-out;
+
+    &:hover {
+        background: var(--mainColor);
+    }
+
+    // Triangle Up
+    .triangle-up {
+        width: 0;
+        height: 0;
+        border-left: 50px solid transparent;
+        border-right: 50px solid transparent;
+        border-bottom: 100px solid var(--darkColor);
+    }
+
+    // Triangle Down
+    .triangle-down {
+        width: 0;
+        height: 0;
+        border-left: 50px solid transparent;
+        border-right: 50px solid transparent;
+        border-top: 100px solid var(--darkColor);
+    }
+
+    // Triangle Left
+    .triangle-left {
+        width: 0;
+        height: 0;
+        border-top: 50px solid transparent;
+        border-bottom: 50px solid transparent;
+        border-right: 100px solid var(--darkColor);
+    }
+
+     // Triangle Right
+     .triangle-right {
+        width: 0;
+        height: 0;
+        border-top: 50px solid transparent;
+        border-bottom: 50px solid transparent;
+        border-left: 100px solid var(--darkColor);
+    }
+
+    // Squre
+    .squre {
+        width: 100px;
+        height: 100px;
+        background: var(--darkColor);
+    }
+
+    // Rectangle
+    .rectangle {
+        width: 200px;
+        height: 100px;
+        background: var(--darkColor);
+    }
+
+    // Circle
+    .circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: var(--darkColor);
+    }
+
+    // Oval
+    .oval {
+        width: 200px;
+        height: 100px;
+        border-radius: 50%;
+        background: var(--darkColor);
+    }
+
+    // Trapezoid
+    .trapezoid {
+        border-bottom: 100px solid var(--darkColor);
+        border-left: 40px solid transparent;
+        border-right: 40px solid transparent;
+        height: 0;
+        width: 225px;
+    }
+
+    // Parallelogram
+    .parallelogram {
+        width: 150px;
+        height: 100px;
+        transform: skew(20deg);
+        background: var(--darkColor);
+    }
+}
