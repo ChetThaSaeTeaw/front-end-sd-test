@@ -22,16 +22,23 @@ export default function ConnectById({ t } : any) {
     const [ attraction , setAttraction ] = useState<AttractionData>([]);
     const { id } = useParams<{ id : string }>();
 
-    useEffect(() => {
-        axios.get(`https://www.melivecode.com/api/attractions/${id}`)
-        .then((response) => {
+    async function getDataById () {
+        const url = "https://www.melivecode.com/api/attractions";
+        let response = await axios.get(`${url}/${id}`);
+
+        if (!response.data) {
+            return;
+        } else {
             setAttraction(response.data.attraction);
-        });
+            // console.log(response.data);
+        }
 
         if (!attraction) return;
+    }
 
-    },[attraction]);
-
+    useEffect(() => {
+        getDataById();
+    },[]);
 
   return (
     <>

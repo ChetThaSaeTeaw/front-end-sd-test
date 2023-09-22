@@ -20,14 +20,22 @@ export default function ConnectApi({ t } : any) {
 
     const [ attractions , setAttractions ] = useState([]);
 
-    useEffect(() => {
-        axios.get("https://www.melivecode.com/api/attractions")
-        .then((response) => {
+    async function getAllData () {
+        const url = "https://www.melivecode.com/api/attractions";
+        let response = await axios.get(url)
+
+        if (!response.data) {
+            return;
+        } else {
             setAttractions(response.data);
-        });
+            // console.log(response.data);
+        }
 
         if (!attractions) return;
+    }
 
+    useEffect(() => {
+        getAllData();
     },[]);
 
   return (
